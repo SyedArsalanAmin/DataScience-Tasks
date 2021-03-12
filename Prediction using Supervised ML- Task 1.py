@@ -7,10 +7,20 @@ import pandas as pd
 import seaborn as sns
 sns.set()
 
-# loadnig dataset
+# loading dataset
 dataset = pd.read_csv(
     "E:\DataScience & AI\Github_repo\datasets\student_scores - student_scores.csv", delimiter=",")
 
 dataset.shape
+
+sns.pairplot(dataset)  # to see correlation between the two features
+plt.scatter(dataset["Hours"], dataset["Scores"], c='r')
+plt.xlabel("Study Hours")
+plt.ylabel("Percentage Obtained")
+plt.title("Percentage vs Hours Studied")
+
 dataset.head()
-sns.pairplot(dataset)  # to see correlation betweent the two features
+X = dataset.iloc[:, 0].values
+y = dataset.iloc[:, 1].values
+
+X_train, X_test, y_taintrain_test_split(X, y, test_size=0.2)
