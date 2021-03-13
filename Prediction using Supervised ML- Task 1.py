@@ -1,9 +1,12 @@
 # %%markdown
-# - Author: __Syed Arsalan Amin__
-# - DaraScience and Business Intelligence Intern
-# - The Sparks Foundation
+# # Author: __Syed Arsalan Amin__
+# ## The Sparks Foundation
+# ### DataScience and Business Intelligence Internship
 # Task-1: Predict the percentage of an student based on the no. of study hours.What will be predicted score if a student studies for 9.25 hrs/ day?
-###
+# ### Dataset: student_scores - student_scores.csv
+# ### Download dataset from here: [student_scores.csv](http://bit.ly/w-data)
+
+# %%codecell
 from sklearn.linear_model import LinearRegression
 import numpy as np
 import matplotlib.pyplot as plt
@@ -13,11 +16,14 @@ import pandas as pd
 import seaborn as sns
 sns.set()
 
-# loading dataset
-dataset = pd.read_csv(
-    "E:\\DataScience & AI\\Github_repo\\datasets\\student_scores - student_scores.csv", delimiter=",")
 
-# Visualizing and exploring data
+# %%markdown
+# ## Loading and Exploring dataset
+
+# %%codecell
+dataset = pd.read_csv(
+    "E:\\DataScience & AI\\Github_repo\\datasets\\student_scores - student_scores.csv", delimiter=",")  # loading dataset
+
 dataset.shape
 dataset.describe()
 sns.pairplot(dataset)  # to see correlation between the two features
@@ -27,16 +33,24 @@ dataset.shape
 X = dataset.iloc[:, :-1].values
 y = dataset.iloc[:, 1].values
 X.shape
+# %%markdown
+# ## splitting dataset in train and test set
+
+# %%codecell
+
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2)  # splitting in train and test data
 
-model = LinearRegression()
-model.fit(X_train, y_train)
+model = LinearRegression()  # loading model
+model.fit(X_train, y_train)  # training model
 
 y_pred = model.predict(X_test)
 pd.DataFrame({'Actual_Values': y_test, 'Predicted_values': y_pred})
 
-# Visualizing the data and fiiting line from the trained model
+# %%markdown
+# ### Visualizing the data and fiiting line from the trained model
+
+# %%codecell
 
 
 def plot_scatter(x, y):
@@ -48,19 +62,25 @@ def plot_scatter(x, y):
 
 def plot_line():
     # now to use the above data to draw a best-fit line
-    x_fit = np.linspace(1, 10, 10)
-    y_fit = model.predict(x_fit[:, np.newaxis])
-    return(plt.plot(x_fit, y_fit))
+    line = model.coef_ * X_test + model.intercept_
+    plt.plot(X_test, line)
 
 
 plot_scatter("Hours", "Scores")
 plot_line()
 
-# Now if student studies 9.25 Hours how many marks would he gain?
+# %%markdown
+# ## Now if student studies 9.25 hours how many marks would he gain?
+# For this prediction use the above trained LinearRegression model
+# %%codecell
 hours = 9.25
 pred_marks = model.predict([[hours]])
 print(f"The student obtains {int(pred_marks[0])} marks if he studies {hours} hours.")
 
-# model evaluation
+
+# %%markdown
+# ## Model evaluation
+# Calculating mean_absolute_error
+# %%codecell
+
 print(f"Model has {mean_absolute_error(y_test, y_pred)} of MAE.")
-# -------------------------------------------------------------------------------
