@@ -15,8 +15,6 @@ from sklearn.metrics import mean_absolute_error
 import pandas as pd
 import seaborn as sns
 sns.set()
-
-
 # %%markdown
 # ## Loading and Exploring dataset
 
@@ -76,10 +74,8 @@ plot_line()
 hours = 9.25
 pred_marks = model.predict([[hours]])
 print(f"The student obtains {int(pred_marks[0])} marks if he studies {hours} hours.")
-
 # %%markdown
 # ## Model evaluation
 # Calculating mean_absolute_error
 # %%codecell
-
 print(f"Model has {mean_absolute_error(y_test, y_pred)} of MAE.")
