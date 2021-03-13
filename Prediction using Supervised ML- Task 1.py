@@ -77,7 +77,6 @@ hours = 9.25
 pred_marks = model.predict([[hours]])
 print(f"The student obtains {int(pred_marks[0])} marks if he studies {hours} hours.")
 
-
 # %%markdown
 # ## Model evaluation
 # Calculating mean_absolute_error
