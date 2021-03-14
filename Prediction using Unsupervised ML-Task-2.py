@@ -2,11 +2,9 @@ import numpy as np
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
-import sklearn.metrics as accuracy_score
 import pandas as pd
 import seaborn as sns
 sns.set()
-
 
 # importing data
 df = pd.read_csv("E:\DataScience & AI\Github_repo\datasets\Iris.csv")
@@ -20,6 +18,8 @@ def scatter_plot(dataset, col1, col2):
     plt.ylabel("Width")
     plt.title("Petal anaylysis")
 
+
+scatter_plot()
 
 df.describe()  # looking into the data for insights
 
@@ -35,16 +35,23 @@ scaled_features.shape
 scaled_features[:3]  # these are the normalized feature set between 0-1
 
 # Using Elbow method to predict the no. of clusters
-cost = []
-for i in range(1, 11):
-    kmeans = KMeans(n_clusters=i)
-    y_pred = kmeans.fit_predict(scaled_features)
-    cost.append(kmeans.inertia_)
 
-plt.plot(np.arange(0, 10), cost, marker='o')
-plt.title("Embow Method")
-plt.xlabel("No. of Clusters")
-plt.ylabel("Cost Function")
+
+def elbow():
+
+    cost = []
+    for i in range(1, 11):
+        kmeans = KMeans(n_clusters=i)
+        kmeans.fit_predict(scaled_features)
+        cost.append(kmeans.inertia_)
+
+    plt.plot(np.arange(0, 10), cost, marker='o')
+    plt.title("Elbow Method")
+    plt.xlabel("No. of Clusters")
+    plt.ylabel("Cost Function")
+
+
+elbow()
 # from thr above plot you can see clearly that there is not significant decrease
 # in the cost so we should take 3 as the no. of cluster
 # kmeans to preict the number of cluster
@@ -74,7 +81,7 @@ sep_cluster3 = df[df['Clusters'] == 2].reset_index(drop=True)
 
 # Plotting clusters
 def plot_sep_cluster():
-    plt.figure(figsize=(12, 12))
+    plt.figure(figsize=(15, 7))
 
     plt.scatter(sep_cluster1.iloc[:, 2], sep_cluster1.iloc[:, 3], c='r',
                 marker='o', edgecolors='black', label="Cluster-1")
@@ -89,6 +96,7 @@ def plot_sep_cluster():
     plt.xlabel('Length(cm)')
     plt.ylabel('Width(cm)')
     plt.legend()
+    plt.title("Sepal Custer Anaylysis")
     plt.show()
 
 
@@ -96,7 +104,7 @@ plot_sep_cluster()
 
 
 def plot_pet_cluster():
-    plt.figure(figsize=(12, 12))
+    plt.figure(figsize=(15, 7))
 
     plt.scatter(pet_cluster1.iloc[:, 0], pet_cluster1.iloc[:, 1], c='r',
                 marker='o', edgecolors='black', label="Cluster-1")
@@ -112,6 +120,7 @@ def plot_pet_cluster():
     plt.xlabel('Length(cm)')
     plt.ylabel('Width(cm)')
     plt.legend()
+    plt.title("Petal Cluster Analysis")
     plt.show()
 
 
