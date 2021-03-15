@@ -6,6 +6,7 @@ import pandas as pd
 import seaborn as sns
 sns.set()
 
+
 # importing data
 df = pd.read_csv("E:\DataScience & AI\Github_repo\datasets\Iris.csv")
 df = df.drop(columns=['Species', 'Id'])
@@ -16,10 +17,11 @@ def scatter_plot(dataset, col1, col2):
     plt.scatter(dataset.iloc[:, col1], dataset.iloc[:, col2])
     plt.xlabel("Lenght")
     plt.ylabel("Width")
-    plt.title("Petal anaylysis")
+    plt.title("Petal/Sepal anaylysis")
 
 
-scatter_plot()
+scatter_plot(df, 2, 3)  # visualizing petal data
+scatter_plot(df, 0, 1)  # visualizing sepal data
 
 df.describe()  # looking into the data for insights
 
